@@ -1,2 +1,46 @@
-GOYOH Medication Dispenser
-Tap to dispense from anywhere:
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GOYOH Kiosk</title>
+    <style>
+        body { font-family: Arial; text-align: center; margin-top: 50px; background: #f4f4f9; }
+        .btn { display: block; width: 80%; max-width: 300px; margin: 20px auto; padding: 20px; font-size: 20px; color: white; border: none; border-radius: 10px; cursor: pointer; }
+        .b1 { background-color: #4CAF50; }
+        .b2 { background-color: #2196F3; }
+        .b3 { background-color: #FF9800; }
+        .b4 { background-color: #E91E63; }
+    </style>
+</head>
+<body>
+    <h2>GOYOH Medication Dispenser</h2>
+    <p>Tap to dispense:</p>
+
+    <button class="btn b1" onclick="triggerDispense('channel1')">Dispense Channel 1</button>
+    <button class="btn b2" onclick="triggerDispense('channel2')">Dispense Channel 2</button>
+    <button class="btn b3" onclick="triggerDispense('channel3')">Dispense Channel 3</button>
+    <button class="btn b4" onclick="triggerDispense('channel4')">Dispense Channel 4</button>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDqv-9flvM_wElXQKX_AF-lueMOgqJSs0o",
+            authDomain: "goyoh-kiosk.firebaseapp.com",
+            databaseURL: "https://goyoh-kiosk-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "goyoh-kiosk",
+            storageBucket: "goyoh-kiosk.firebasestorage.app",
+            messagingSenderId: "544745814975",
+            appId: "1:544745814975:web:03a94e1a957a0b8448ff0a",
+            measurementId: "G-KDGRT9ZPQY"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        window.triggerDispense = function(channel) {
+            set(ref(db, 'dispense/' + channel), true);
+        }
+    </script>
+</body>
+</html>
